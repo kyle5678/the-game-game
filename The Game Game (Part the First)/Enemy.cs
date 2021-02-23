@@ -56,7 +56,7 @@ namespace The_Game_Game__Part_the_First_
             MaxHealth = 1;
             CurrentHealth = 1;
             Attacks = new List<AttackMove> { new AttackMove("[a] bites into your skin.", Combat.DamageType.Melee, 1, 0.5f) };
-            DodgeRate = 0.9f;
+            DodgeRate = 0.75f;
         }
     }
 }

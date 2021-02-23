@@ -42,60 +42,18 @@ namespace The_Game_Game__Part_the_First_
 
                     Console.WriteLine("Which weapon would you like to attack with?");
                     foreach (Weapon aruu in Weapons)
-                    {
                         Console.WriteLine($"\t{Weapons.IndexOf(aruu) + 1}. {aruu.Name}");
-                    }
-
-                    while (true)
-                    {
-                        keypress = Console.ReadKey(true);
-                        if (int.TryParse(keypress.KeyChar.ToString(), out int weaponIndex))
-                        {
-                            if (weaponIndex <= Weapons.Count)
-                            {
-                                weapon = Weapons[weaponIndex - 1];
-                                break;
-                            }
-                        }
-                    }
+                    weapon = Weapons[Text.InputNumber(Weapons.Count) - 1];
 
                     Console.WriteLine($"Attack which enemy with {weapon.Name}?");
                     foreach (Enemy aruu in Combat.Enemies)
-                    {
                         Console.WriteLine($"\t{Combat.Enemies.IndexOf(aruu) + 1}. {aruu.Name}");
-                    }
-
-                    while (true)
-                    {
-                        keypress = Console.ReadKey(true);
-                        if (int.TryParse(keypress.KeyChar.ToString(), out int enemyIndex))
-                        {
-                            if (enemyIndex <= Combat.Enemies.Count)
-                            {
-                                victim = Combat.Enemies[enemyIndex - 1];
-                                break;
-                            }
-                        }
-                    }
+                    victim = Combat.Enemies[Text.InputNumber(Combat.Enemies.Count) - 1];
 
                     Console.WriteLine($"Use which attack of {weapon.Name}?");
                     foreach (AttackMove aruu in weapon.Attacks)
-                    {
                         Console.WriteLine($"\t{weapon.Attacks.IndexOf(aruu) + 1}. {aruu.Type}");
-                    }
-
-                    while (true)
-                    {
-                        keypress = Console.ReadKey(true);
-                        if (int.TryParse(keypress.KeyChar.ToString(), out int attackIndex))
-                        {
-                            if (attackIndex <= weapon.Attacks.Count)
-                            {
-                                attack = weapon.Attacks[attackIndex - 1];
-                                break;
-                            }
-                        }
-                    }
+                    attack = weapon.Attacks[Text.InputNumber(weapon.Attacks.Count)];
 
                     attack.Attack(victim, Name);
 

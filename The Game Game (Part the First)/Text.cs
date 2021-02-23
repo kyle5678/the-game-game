@@ -89,5 +89,20 @@ namespace The_Game_Game__Part_the_First_
             Console.WriteLine(text);
             Console.ReadKey(true);
         }
+
+        public static int InputNumber(int max)
+        {
+            while (true)
+            {
+                ConsoleKeyInfo keypress = Console.ReadKey(true);
+                if (int.TryParse(keypress.KeyChar.ToString(), out int index))
+                {
+                    if (index <= max)
+                    {
+                        return index;
+                    }
+                }
+            }
+        }
     }
 }
