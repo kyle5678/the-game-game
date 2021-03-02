@@ -79,12 +79,20 @@ namespace The_Game_Game__Part_the_First_
             }
         }
 
+        public static void Line()
+        {
+            for (int i = 0; i < Console.WindowWidth; i++)
+            {
+                Console.Write("-");
+            }
+        }
+
         public static void Wait()
         {
             Console.ReadKey(true);
         }
 
-        public static void Wait(string text)
+        public static void Wait(object text)
         {
             Console.WriteLine(text);
             Console.ReadKey(true);
@@ -97,12 +105,25 @@ namespace The_Game_Game__Part_the_First_
                 ConsoleKeyInfo keypress = Console.ReadKey(true);
                 if (int.TryParse(keypress.KeyChar.ToString(), out int index))
                 {
-                    if (index <= max)
+                    if (index <= max && index != 0)
                     {
                         return index;
                     }
                 }
             }
         }
+
+        public static int Choose(string message, params string[] choices)
+        {
+            Console.WriteLine(message);
+            foreach (string choice in choices)
+            {
+                Console.WriteLine($"\t{Array.IndexOf(choices, choice) + 1}. {choice}");
+            }
+
+            return InputNumber(choices.Length + 1);
+        }
+
+        public static int Select() { return 0; }
     }
 }

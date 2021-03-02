@@ -81,12 +81,11 @@ namespace The_Game_Game__Part_the_First_
 
             Console.WriteLine("Okay! You're all set to begin your journey! Have fun!");
             Text.Wait();
-            Console.Clear();
         }
 
         public static void GameGame()
         {
-            Story.Chapter1();
+            Story.Storytell(StoryArc.Chapter1);
         }
     }
 }

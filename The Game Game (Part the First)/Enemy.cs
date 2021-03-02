@@ -37,14 +37,31 @@ namespace The_Game_Game__Part_the_First_
 
             else
             {
-                CurrentHealth -= damage;
-                Text.Wait($"{Name} took {damage} damage from the attack.");
-                if (CurrentHealth <= 0)
-                {
-                    Text.Wait($"{Name} dies from the attack!");
-                    Combat.Enemies.Remove(this);
-                }
+                TakeDamage(damage, type);
             }
+        }
+
+        public void TakeDamage(int damage, Combat.DamageType type)
+        {
+            CurrentHealth -= damage;
+            Text.Wait($"{Name} took {damage} damage from the attack.");
+            if (CurrentHealth <= 0)
+            {
+                Text.Wait($"{Name} dies from the attack!");
+                Combat.Enemies.Remove(this);
+            }
+        }
+    }
+
+    class NimbleSpiderling : Enemy
+    {
+        public NimbleSpiderling()
+        {
+            Name = "Spiderling";
+            MaxHealth = 1;
+            CurrentHealth = 1;
+            Attacks = new List<AttackMove> { new AttackMove("[a] bites into your skin.", Combat.DamageType.Melee, 1, 0.5f) };
+            DodgeRate = 0.75f;
         }
     }
 
@@ -53,10 +70,10 @@ namespace The_Game_Game__Part_the_First_
         public Spiderling()
         {
             Name = "Spiderling";
-            MaxHealth = 1;
-            CurrentHealth = 1;
-            Attacks = new List<AttackMove> { new AttackMove("[a] bites into your skin.", Combat.DamageType.Melee, 1, 0.5f) };
-            DodgeRate = 0.75f;
+            MaxHealth = 3;
+            CurrentHealth = 3;
+            Attacks = new List<AttackMove> { new AttackMove("[a] sinks its fangs into you.", Combat.DamageType.Melee, 1, 0.5f) };
+            DodgeRate = 0.05f;
         }
     }
 }

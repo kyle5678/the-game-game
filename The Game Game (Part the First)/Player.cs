@@ -14,7 +14,7 @@ namespace The_Game_Game__Part_the_First_
 
             if (Game.SecretDeveloperMode)
             {
-                Weapons.Add(new Weapon("Light", new AttackMove("[a] radiates intense light.", Combat.DamageType.Light, 2147483647)));
+                Weapons.Add(new Light());
             }
         }
 
@@ -33,8 +33,8 @@ namespace The_Game_Game__Part_the_First_
 
             while (true)
             {
-                ConsoleKeyInfo keypress = Console.ReadKey(true);
-                if (keypress.Key == ConsoleKey.D1)
+                int keypress = Text.InputNumber(4);
+                if (keypress == 1)
                 {
                     Weapon weapon;
                     Enemy victim;
@@ -53,25 +53,25 @@ namespace The_Game_Game__Part_the_First_
                     Console.WriteLine($"Use which attack of {weapon.Name}?");
                     foreach (AttackMove aruu in weapon.Attacks)
                         Console.WriteLine($"\t{weapon.Attacks.IndexOf(aruu) + 1}. {aruu.Type}");
-                    attack = weapon.Attacks[Text.InputNumber(weapon.Attacks.Count)];
+                    attack = weapon.Attacks[Text.InputNumber(weapon.Attacks.Count) - 1];
 
                     attack.Attack(victim, Name);
 
                     break;
                 }
 
-                if (keypress.Key == ConsoleKey.D2)
+                if (keypress == 2)
                 {
                     Console.WriteLine("Functionality not available yet.");
                 }
 
-                if (keypress.Key == ConsoleKey.D3)
+                if (keypress == 3)
                 {
                     Text.Wait("You waited...");
                     break;
                 }
 
-                if (keypress.Key == ConsoleKey.D4)
+                if (keypress == 4)
                 {
                     Console.WriteLine("Functionality not available yet.");
                 }

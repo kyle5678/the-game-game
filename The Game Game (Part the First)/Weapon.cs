@@ -23,6 +23,18 @@ namespace The_Game_Game__Part_the_First_
         public List<AttackMove> Attacks = new List<AttackMove>();
     }
 
+    class Light : Weapon
+    {
+        public Light()
+        {
+            Name = "Light";
+            Attacks = new List<AttackMove>
+            {
+                new AttackMove("A blinding flash of light eminates from [a]'s outstretched hands.", Combat.DamageType.Light, 0, int.MaxValue - 1, null)
+            };
+        }
+    }
+
     class StoneDagger : Weapon
     {
         public StoneDagger()

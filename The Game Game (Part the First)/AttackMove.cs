@@ -6,7 +6,7 @@ namespace The_Game_Game__Part_the_First_
 {
     class AttackMove
     {
-        public AttackMove(string message, Combat.DamageType damageType, int minDamage, int maxDamage, float accuracy)
+        public AttackMove(string message, Combat.DamageType damageType, int minDamage, int maxDamage, float? accuracy)
         {
             Message = message;
             Type = damageType;
@@ -23,7 +23,7 @@ namespace The_Game_Game__Part_the_First_
             MaximumDamage = maxDamage;
         }
 
-        public AttackMove(string message, Combat.DamageType damageType, int fixedDamage, float accuracy)
+        public AttackMove(string message, Combat.DamageType damageType, int fixedDamage, float? accuracy)
         {
             Message = message;
             Type = damageType;
@@ -43,7 +43,7 @@ namespace The_Game_Game__Part_the_First_
         public Combat.DamageType Type;
         private int MinimumDamage;
         private int MaximumDamage;
-        private float Accuracy = 1.0f;
+        private float? Accuracy = 1.0f;
         public string Message;
 
         public void Attack(Player target, string attacker)
@@ -65,7 +65,12 @@ namespace The_Game_Game__Part_the_First_
         {
             Text.Wait(Message.Replace("[a]", attacker));
 
-            if ((float)Technical.Random.NextDouble() < Accuracy)
+            if (Accuracy == null)
+            {
+                target.TakeDamage(Technical.Random.Next(MinimumDamage, MaximumDamage + 1), Type);
+            }
+
+            else if ((float)Technical.Random.NextDouble() < Accuracy)
             {
                 target.Damage(Technical.Random.Next(MinimumDamage, MaximumDamage + 1), Type);
             }
