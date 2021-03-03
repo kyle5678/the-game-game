@@ -20,18 +20,18 @@ namespace The_Game_Game__Part_the_First_
             Light
         }
 
-        public static void Start(bool clearAfter, params Enemy[] enemies)
+        public static bool Start(bool clearAfter, params Enemy[] enemies)
         {
             Enemies.AddRange(enemies);
-            Start(clearAfter);
+            return Start(clearAfter);
         }
 
-        public static void Start(params Enemy[] enemies)
+        public static bool Start(params Enemy[] enemies)
         {
-            Start(true, enemies);
+            return Start(true, enemies);
         }
 
-        public static void Start(bool clearAfter, params object[] enemiesOrQuantity)
+        public static bool Start(bool clearAfter, params object[] enemiesOrQuantity)
         {
             int quantity = 1;
             foreach (object enemyOrInt in enemiesOrQuantity)
@@ -60,21 +60,22 @@ namespace The_Game_Game__Part_the_First_
                 }
             }
 
-            Start(clearAfter);
+            return Start(clearAfter);
         }
 
-        public static void Start(params object[] enemiesOrQuantity)
+        public static bool Start(params object[] enemiesOrQuantity)
         {
-            Start(true, enemiesOrQuantity);
+            return Start(true, enemiesOrQuantity);
         }
 
-        public static void Start(bool clearAfter = true)
+        public static bool Start(bool clearAfter = true, bool storyImportant = true)
         {
             Console.Clear();
 
             List<Combatant> Combatants = new List<Combatant>();
             List<Combatant> randomizeOrder = new List<Combatant>();
-            randomizeOrder.AddRange(Game.Players);
+            randomizeOrder.Add(Game.PlayerOne);
+            //randomizeOrder.AddRange(Game.Players);
             randomizeOrder.AddRange(Enemies);
             while (randomizeOrder.Count > 0)
             {
@@ -106,9 +107,18 @@ namespace The_Game_Game__Part_the_First_
 
                     Text.Line();
 
-                    if (Game.Players.Count <= 0)
+                    if (Game.PlayerOne.Dead)
                     {
-                        Console.WriteLine("You ded");
+                        Text.Wait("You fall, mortally wounded.");
+                        if (storyImportant)
+                        {
+                            Text.Wait("But a force, a powerful, yet somehow familiar one, refuses to let you die here.");
+                        }
+
+                        else
+                        {
+                            return false;
+                        }
                     }
 
                     if (Enemies.Count <= 0)
@@ -116,7 +126,7 @@ namespace The_Game_Game__Part_the_First_
                         Text.Wait("You emerged victorious in battle!");
                         if (clearAfter)
                             Console.Clear();
-                        return;
+                        return true;
                     }
                 }
             }

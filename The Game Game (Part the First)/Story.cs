@@ -55,13 +55,15 @@ namespace The_Game_Game__Part_the_First_
             Text.Wait("Through gritted teeth, you scramble around for anything to defend yourself with.");
             Text.Wait("The handle of a crude stone dagger comes into your hand.");
 
-            Game.Players[0].Weapons.Add(new StoneDagger());
+            Game.PlayerOne.Weapons.Add(new StoneDagger());
+            //Game.Players[0].Weapons.Add(new StoneDagger());
 
             Text.Wait("Quickly, before the spider comes back, you swing blindly through the darkness.");
             Text.Wait("The dagger makes its mark. The spiderling reels backward, hissing in pain.");
             Text.Wait("And so, the struggle begins...");
 
-            Combat.Start(new NimbleSpiderling());
+            if (!Combat.Start(new NimbleSpiderling()))
+                return null;
 
             Text.Wait("The spider, letting out a shriek of pain, scrambles away quickly, leaving you with time to rest and think.");
             Text.Wait("Nothing comes into your mind. You grope around in the darkness.");
@@ -87,7 +89,9 @@ namespace The_Game_Game__Part_the_First_
                 Text.Wait("You manage to escape, cutting through with your dagger...");
                 Text.Wait("...only to find yourself surrounded by spiders, hoping for a hearty feast.");
                 Text.Wait("Your flashlight flickers, and fades. Through darkness, the spiders bite.");
-                Combat.Start(3, new Spiderling());
+
+                if (!Combat.Start(3, new Spiderling()))
+                    return null;
             }
 
             else if (Choice.EscapeSpiderweb == 3)

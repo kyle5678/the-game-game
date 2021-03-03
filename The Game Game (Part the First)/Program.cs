@@ -52,32 +52,32 @@ namespace The_Game_Game__Part_the_First_
                 Console.Clear();
             }
 
-            Console.WriteLine("Select Gamemode:\n\t1. singleplayer\n\t2. multiplayer");
-            while (true)
-            {
-                keypress = Console.ReadKey(true);
-                if (keypress.Key == ConsoleKey.D1)
-                {
-                    Console.WriteLine("Gamemode selected: Singleplayer");
-                    Game.Players.Add(new Player(
-                        Text.Input("What shall you be called in this world?", "You can't have no name! Have another try."), 10));
+            //Console.WriteLine("Select Gamemode:\n\t1. singleplayer\n\t2. multiplayer");
+            //while (true)
+            //{
+            //    keypress = Console.ReadKey(true);
+            //    if (keypress.Key == ConsoleKey.D1)
+            //    {
+            Console.WriteLine("Gamemode selected: Singleplayer");
+            //Game.Players.Add(
+            Game.PlayerOne = new Player(Text.Input("What shall you be called in this world?", "You can't have no name! Have another try."), 10);
 
-                    break;
-                }
+            //        break;
+            //    }
 
-                if (keypress.Key == ConsoleKey.D2)
-                {
-                    Console.WriteLine("Gamemode selected: Multiplayer");
-                    int players = Text.Input("How many players? ", 0, "that isn't a number. ");
-                    for (int i = 0; i < players; i++)
-                    {
-                        Game.Players.Add(new Player(
-                            Text.Input($"Please name Player #{i + 1}", "Make a name already, would you?"), 10));
-                    }
+            //    if (keypress.Key == ConsoleKey.D2)
+            //    {
+            //        Console.WriteLine("Gamemode selected: Multiplayer");
+            //        int players = Text.Input("How many players? ", 0, "that isn't a number. ");
+            //        for (int i = 0; i < players; i++)
+            //        {
+            //            Game.Players.Add(new Player(
+            //                Text.Input($"Please name Player #{i + 1}", "Make a name already, would you?"), 10));
+            //        }
 
-                    break;
-                }
-            }
+            //        break;
+            //    }
+            //}
 
             Console.WriteLine("Okay! You're all set to begin your journey! Have fun!");
             Text.Wait();

@@ -21,6 +21,13 @@ namespace The_Game_Game__Part_the_First_
         public string Name;
         public int CurrentHealth;
         public int MaxHealth;
+        public bool Dead
+        {
+            get
+            {
+                return CurrentHealth <= 0;
+            }
+        }
         public List<Weapon> Weapons = new List<Weapon>();
 
         public void Turn()
@@ -85,8 +92,14 @@ namespace The_Game_Game__Part_the_First_
             if (CurrentHealth <= 0)
             {
                 Text.Wait($"{Name} dies from the attack!");
-                Game.Players.Remove(this);
+                Death();
+                //Game.Players.Remove(this);
             }
+        }
+
+        public void Death()
+        {
+
         }
     }
 }

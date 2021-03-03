@@ -25,7 +25,8 @@ namespace The_Game_Game__Part_the_First_
         public void Attack()
         {
             AttackMove attack = Attacks[Technical.Random.Next(0, Attacks.Count)];
-            attack.Attack(Game.Players[0], Name);
+            attack.Attack(Game.PlayerOne, Name);
+            //attack.Attack(Game.Players[0], Name);
         }
 
         public void Damage(int damage, Combat.DamageType type)
