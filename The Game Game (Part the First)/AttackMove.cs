@@ -4,6 +4,7 @@ using System.Text;
 
 namespace The_Game_Game__Part_the_First_
 {
+    [Serializable]
     class AttackMove
     {
         public AttackMove(string message, Combat.DamageType damageType, int minDamage, int maxDamage, float? accuracy)

@@ -30,14 +30,14 @@ namespace The_Game_Game__Part_the_First_
         }
         public List<Weapon> Weapons = new List<Weapon>();
 
-        public void Turn()
+        public Enemy? Turn()
         {
             Console.WriteLine($"{Name}, it's your turn!");
             Console.WriteLine("\t1. Attack");
             Console.WriteLine("\t2. Use Item");
             Console.WriteLine("\t3. Skip Turn");
             Console.WriteLine("\t4. Flee");
-
+            
             while (true)
             {
                 int keypress = Text.InputNumber(4);
@@ -64,7 +64,7 @@ namespace The_Game_Game__Part_the_First_
 
                     attack.Attack(victim, Name);
 
-                    break;
+                    return victim;
                 }
 
                 if (keypress == 2)
@@ -83,6 +83,8 @@ namespace The_Game_Game__Part_the_First_
                     Console.WriteLine("Functionality not available yet.");
                 }
             }
+
+            return null;
         }
 
         public void Damage(int damage, Combat.DamageType type)

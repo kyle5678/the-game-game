@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace The_Game_Game__Part_the_First_
 {
@@ -17,6 +18,7 @@ namespace The_Game_Game__Part_the_First_
                 Console.Clear();
                 Console.WriteLine("Sorry, an error occurred (which may or may not be your fault). Below is some information (which no doubt you won't understand, so send it to the developers)");
                 Console.WriteLine(e);
+                File.WriteAllText($"{Directory.GetCurrentDirectory()}/exception.txt", e.ToString());
                 Console.WriteLine("Now go away.");
             }
 

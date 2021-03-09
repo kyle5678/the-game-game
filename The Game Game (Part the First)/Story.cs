@@ -13,9 +13,9 @@ namespace The_Game_Game__Part_the_First_
     {
         public static Dictionary<StoryArc, Func<StoryArc?>> StoryDictionary = new Dictionary<StoryArc, Func<StoryArc?>>
         {
-            { StoryArc.Chapter1, Chapter1 },
+            { StoryArc.Chapter1, ThroughTheDarkness },
         };
-
+        
         public static void Storytell(StoryArc? part)
         {
             if (!part.HasValue)
@@ -37,7 +37,7 @@ namespace The_Game_Game__Part_the_First_
             public static int EscapeSpiderweb;
         }
 
-        public static StoryArc? Chapter1()
+        public static StoryArc? ThroughTheDarkness()
         {
             Console.Clear();
             Text.Center(2);
@@ -62,8 +62,7 @@ namespace The_Game_Game__Part_the_First_
             Text.Wait("The dagger makes its mark. The spiderling reels backward, hissing in pain.");
             Text.Wait("And so, the struggle begins...");
 
-            if (!Combat.Start(new NimbleSpiderling()))
-                return null;
+            Combat.Start(true, true, new NimbleSpiderling());
 
             Text.Wait("The spider, letting out a shriek of pain, scrambles away quickly, leaving you with time to rest and think.");
             Text.Wait("Nothing comes into your mind. You grope around in the darkness.");
@@ -72,7 +71,7 @@ namespace The_Game_Game__Part_the_First_
             Text.Wait("*click*");
             Text.Wait("Suddenly, a blinding light materialises.");
             Text.Wait("You are holding a small black flashlight, and shining it around the cave, you see nothing but thick spiderweb in every direction.");
-
+            
             Choice.EscapeSpiderweb = Text.Choose("But you need to get out, somehow...", "Cut your way out with your dagger.", "Walk through the webs.", "Stay");
             if (Choice.EscapeSpiderweb == 1)
             {
@@ -92,6 +91,8 @@ namespace The_Game_Game__Part_the_First_
 
                 if (!Combat.Start(3, new Spiderling()))
                     return null;
+
+                Text.Wait("How did you survive.");
             }
 
             else if (Choice.EscapeSpiderweb == 3)

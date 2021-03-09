@@ -20,10 +20,15 @@ namespace The_Game_Game__Part_the_First_
             Light
         }
 
-        public static bool Start(bool clearAfter, params Enemy[] enemies)
+        public static bool Start(bool clearAfter, bool storyImportant, params Enemy[] enemies)
         {
             Enemies.AddRange(enemies);
-            return Start(clearAfter);
+            return Start(clearAfter, storyImportant);
+        }
+
+        public static bool Start(bool clearAfter, params Enemy[] enemies)
+        {
+            return Start(clearAfter, false, enemies);
         }
 
         public static bool Start(params Enemy[] enemies)
@@ -45,7 +50,7 @@ namespace The_Game_Game__Part_the_First_
                 {
                     for (int i = 0; i < quantity; i++)
                     {
-                        Enemy newEnemy = (Enemy)enemyOrInt;
+                        Enemy newEnemy = Technical.DeepClone((Enemy)enemyOrInt);
                         newEnemy.Name += $" #{i + 1}";
                         Enemies.Add(newEnemy);
                     }
@@ -68,30 +73,38 @@ namespace The_Game_Game__Part_the_First_
             return Start(true, enemiesOrQuantity);
         }
 
-        public static bool Start(bool clearAfter = true, bool storyImportant = true)
+        public static bool Start(bool clearAfter = true, bool storyImportant = false)
         {
             Console.Clear();
 
-            List<Combatant> Combatants = new List<Combatant>();
-            List<Combatant> randomizeOrder = new List<Combatant>();
-            randomizeOrder.Add(Game.PlayerOne);
+            List<Combatant> CombatOrder = new List<Combatant>();
+            List<Combatant> randomizeOrder = new List<Combatant> { Game.PlayerOne };
             //randomizeOrder.AddRange(Game.Players);
             randomizeOrder.AddRange(Enemies);
             while (randomizeOrder.Count > 0)
             {
                 int i = Technical.Random.Next(0, randomizeOrder.Count);
-                Combatants.Add(randomizeOrder[i]);
+                CombatOrder.Add(randomizeOrder[i]);
                 randomizeOrder.RemoveAt(i);
             }
 
             for (; ; )
             {
-                foreach (Combatant thing in Combatants)
+                for (int i = 0; i < CombatOrder.Count; i++)
                 {
+                    Combatant thing = CombatOrder[i];
                     if (thing is Player)
                     {
                         Player player = (Player)thing;
-                        player.Turn();
+                        Enemy victim = player.Turn();
+
+                        if (victim != null)
+                        {
+                            if (victim.CurrentHealth <= 0)
+                            {
+                                CombatOrder.Remove(victim);
+                            }
+                        }
                     }
 
                     else if (thing is Enemy)

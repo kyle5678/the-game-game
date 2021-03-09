@@ -4,6 +4,7 @@ using System.Text;
 
 namespace The_Game_Game__Part_the_First_
 {
+    [Serializable]
     class Enemy : Combatant
     {
         public Enemy(string name, int health, AttackMove attack)
@@ -54,6 +55,7 @@ namespace The_Game_Game__Part_the_First_
         }
     }
 
+    [Serializable]
     class NimbleSpiderling : Enemy
     {
         public NimbleSpiderling()
@@ -66,6 +68,7 @@ namespace The_Game_Game__Part_the_First_
         }
     }
 
+    [Serializable]
     class Spiderling : Enemy
     {
         public Spiderling()
