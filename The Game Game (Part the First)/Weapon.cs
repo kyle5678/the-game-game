@@ -6,17 +6,17 @@ namespace The_Game_Game__Part_the_First_
 {
     class Weapon
     {
-        public Weapon(string name, AttackMove attack)
+        public Weapon() { }
+
+        public Weapon(string name, params AttackMove[] attack)
         {
             Name = name;
             AddAttack(attack);
         }
 
-        public Weapon() { }
-
-        public void AddAttack(AttackMove attack)
+        public void AddAttack(params AttackMove[] attack)
         {
-            Attacks.Add(attack);
+            Attacks.AddRange(attack);
         }
 
         public string Name;

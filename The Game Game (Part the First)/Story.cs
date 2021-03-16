@@ -92,7 +92,8 @@ namespace The_Game_Game__Part_the_First_
                 if (!Combat.Start(3, new Spiderling()))
                     return null;
 
-                Text.Wait("How did you survive.");
+                Text.Wait("Throwing off the last of the spiderlings, you struggle forward once more.");
+                Text.Wait("You find yourself in a glowing domed cavern.");
             }
 
             else if (Choice.EscapeSpiderweb == 3)
@@ -102,6 +103,8 @@ namespace The_Game_Game__Part_the_First_
                 Text.Wait("You scream no more.");
                 return null;
             }
+
+            Text.Wait("Rubble falls from above, just as you get through. The passage backwards is now blocked.");
 
             return StoryArc.Chapter1;
         }

@@ -21,6 +21,10 @@ namespace The_Game_Game__Part_the_First_
         public string Name;
         public int CurrentHealth;
         public int MaxHealth;
+
+        public List<Weapon> Weapons = new List<Weapon>();
+        public List<Item> Items = new List<Item>();
+        
         public bool Dead
         {
             get
@@ -28,7 +32,6 @@ namespace The_Game_Game__Part_the_First_
                 return CurrentHealth <= 0;
             }
         }
-        public List<Weapon> Weapons = new List<Weapon>();
 
         public Enemy? Turn()
         {
@@ -37,7 +40,7 @@ namespace The_Game_Game__Part_the_First_
             Console.WriteLine("\t2. Use Item");
             Console.WriteLine("\t3. Skip Turn");
             Console.WriteLine("\t4. Flee");
-            
+
             while (true)
             {
                 int keypress = Text.InputNumber(4);
