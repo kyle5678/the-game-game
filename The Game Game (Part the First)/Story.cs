@@ -11,33 +11,33 @@ namespace The_Game_Game__Part_the_First_
 
     class Story
     {
-        public static Dictionary<StoryArc, Func<StoryArc?>> StoryDictionary = new Dictionary<StoryArc, Func<StoryArc?>>
-        {
-            { StoryArc.Chapter1, ThroughTheDarkness },
-        };
-        
-        public static void Storytell(StoryArc? part)
-        {
-            if (!part.HasValue)
-            {
-                Console.Clear();
-                Text.Center(1);
-                Text.Center("You have failed.");
-                return;
-            }
+        //public static Dictionary<StoryArc, Func<StoryArc?>> StoryDictionary = new Dictionary<StoryArc, Func<StoryArc?>>
+        //{
+        //    { StoryArc.Chapter1, ThroughTheDarkness },
+        //};
 
-            else if (StoryDictionary.TryGetValue(part.Value, out var storyFunction))
-            {
-                Storytell(storyFunction());
-            }
-        }
+        //public static void Storytell(StoryArc? part)
+        //{
+        //    if (!part.HasValue)
+        //    {
+        //        Console.Clear();
+        //        Text.Center(1);
+        //        Text.Center("You have failed.");
+        //        return;
+        //    }
+
+        //    else if (StoryDictionary.TryGetValue(part.Value, out var storyFunction))
+        //    {
+        //        Storytell(storyFunction());
+        //    }
+        //}
 
         class Choice
         {
             public static int EscapeSpiderweb;
         }
 
-        public static StoryArc? ThroughTheDarkness()
+        public static /*StoryArc?*/ void Chapter1ThroughTheDarkness()
         {
             Console.Clear();
             Text.Center(2);
@@ -71,7 +71,7 @@ namespace The_Game_Game__Part_the_First_
             Text.Wait("*click*");
             Text.Wait("Suddenly, a blinding light materialises.");
             Text.Wait("You are holding a small black flashlight, and shining it around the cave, you see nothing but thick spiderweb in every direction.");
-            
+
             Choice.EscapeSpiderweb = Text.Choose("But you need to get out, somehow...", "Cut your way out with your dagger.", "Walk through the webs.", "Stay");
             if (Choice.EscapeSpiderweb == 1)
             {
@@ -79,6 +79,7 @@ namespace The_Game_Game__Part_the_First_
                 Text.Wait("More spiders come to you, hissing, angry now that you've damaged their nest.");
                 Text.Wait("You soon discover that the spiders are unfamiliar with light, so you shine your flashlight at every spider coming close");
                 Text.Wait("Through a cut path, you find yourself in a domed cavern.");
+                Text.Wait("Your flashlight fades out to dark.");
             }
 
             else if (Choice.EscapeSpiderweb == 2)
@@ -90,7 +91,7 @@ namespace The_Game_Game__Part_the_First_
                 Text.Wait("Your flashlight flickers, and fades. Through darkness, the spiders bite.");
 
                 if (!Combat.Start(3, new Spiderling()))
-                    return null;
+                    return /*null*/;
 
                 Text.Wait("Throwing off the last of the spiderlings, you struggle forward once more.");
                 Text.Wait("You find yourself in a glowing domed cavern.");
@@ -101,12 +102,19 @@ namespace The_Game_Game__Part_the_First_
                 Text.Wait("Your flashlight goes out. Left in darkness, you shiver.");
                 Text.Wait("Through the dark, teeth sink into you.");
                 Text.Wait("You scream no more.");
-                return null;
+                return /*null*/;
             }
 
             Text.Wait("Rubble falls from above, just as you get through. The passage backwards is now blocked.");
+            new Room(
+                new Spiderling(),
+                new Item("Unpleasant Meat", ItemUse.Heal, 2),
+                "A crude doorway. A faint glow eminates from inside the room.",
+                "Spiderwebs cover the room.",
+                "From above, a spider drops, ready to bite."
+            ).Enter();
 
-            return StoryArc.Chapter1;
+            //return StoryArc.Chapter1;
         }
     }
 }

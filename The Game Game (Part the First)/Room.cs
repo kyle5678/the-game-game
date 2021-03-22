@@ -35,29 +35,72 @@ namespace The_Game_Game__Part_the_First_
                     Weapons.Add(weapon);
                 }
 
+                else if (thing is string importantLookingString)
+                {
+                    if (EntryDescription == null)
+                        EntryDescription = importantLookingString;
+                    else
+                    {
+                        //Messages.Add(importantLookingString);
+                        string[] split = importantLookingString.Split(">");
+                        if (MessageID.TryGetValue(split[0], out int i))
+                        {
+                            Messages[i] = split[1];
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("// DEBUG : code not in dictionary");
+                        }
+                    }
+                }
+
+                else if (thing is int roomID)
+                {
+                    NumberedExits.Add(roomID);
+                }
+
                 else
                 {
-                    Console.WriteLine("// DEBUG : parameter must be in type Enemy, Item, or Weapon");
+                    Console.WriteLine($"// DEBUG : parameter not in correct type, in type {thing.GetType()}");
                 }
             }
         }
+
+        public string EntryDescription = null;
+        public string[] Messages = new string[7];
+
+        private Dictionary<string, int> MessageID = new Dictionary<string, int>
+        {
+            { "ENTER", 0 },
+            { "ATK", 1 },
+            { "LOOT", 2 },
+            { "EMPTY", 3 },
+            { "SEARCH", 4 },
+            { "LEAVE", 5 },
+            { "EXIT", 6 },
+        };
 
         public List<Enemy> Encounters = new List<Enemy>();
         public List<Item> Items = new List<Item>();
         public List<Weapon> Weapons = new List<Weapon>();
         public List<Room> Exits = new List<Room>();
+        public List<int> NumberedExits = new List<int>();
 
-        public void EnterRoom()
+        public bool Enter()
         {
+            CustomMessage(0);
+
             if (Encounters.Count > 0)
             {
-                Text.Wait("Upon entering the room, you see foes.");
-                Combat.Start(Encounters.ToArray());
+                CustomMessage(1, "Upon entering the room, you see foes.");
+                if (!Combat.Start(Encounters.ToArray()))
+                    return false;
             }
 
             if (Items.Count > 0 || Weapons.Count > 0)
             {
-                Text.Wait("You see various items littered on the ground.");
+                CustomMessage(2, "You see various items littered on the ground.");
                 List<object> Loot = new List<object>();
                 Loot.AddRange(Items);
                 Loot.AddRange(Weapons);
@@ -66,11 +109,11 @@ namespace The_Game_Game__Part_the_First_
                 {
                     if (Loot.Count == 0)
                     {
-                        Text.Wait("There are no more items to pick up.");
+                        CustomMessage(3, "There are no more items to pick up.");
                         break;
                     }
 
-                    int? objectIndex = Text.Select("a", true, Loot.ToArray());
+                    int? objectIndex = Text.Select(CustomMsgString(4, "You search the items for anything valuable."), true, Loot.ToArray());
 
                     if (objectIndex.HasValue)
                     {
@@ -92,13 +135,34 @@ namespace The_Game_Game__Part_the_First_
 
                     else
                     {
-                        Text.Wait("You leave the rest of the items in the room, they are of no use to you.");
+                        CustomMessage(5, "You leave the rest of the items in the room, they are of no use to you.");
                         break;
                     }
                 }
-
-                Text.Wait();
             }
+
+            if (NumberedExits.Count <= 0)
+            {
+                return Exits[(int)Text.Select(CustomMsgString(6, "There is nothing more in this room of much interest. You look around to other entries to rooms."), Exits.ToArray())].Enter();
+            }
+
+            return true;
+        }
+
+        private void CustomMessage(int index, string defaultMessage)
+        {
+            Text.Wait(Messages[index] == null ? defaultMessage : Messages[index]);
+        }
+
+        private void CustomMessage(int index)
+        {
+            if (Messages[index] != null)
+                Text.Wait(Messages[index]);
+        }
+
+        private string CustomMsgString(int index, string defaultMessage)
+        {
+            return Messages[index] == null ? defaultMessage : Messages[index];
         }
     }
 }

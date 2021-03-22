@@ -147,7 +147,7 @@ namespace The_Game_Game__Part_the_First_
             int tensAdd = 0;
             while (true)
             {
-                Console.WriteLine(message);
+                Console.WriteLine($"{message} ({tensAdd+1}/{choices.Length})");
                 for (int i = 0; i < 10; i++)
                 {
                     if (i + tensAdd < choices.Length)
@@ -214,6 +214,8 @@ namespace The_Game_Game__Part_the_First_
                     selectionStrings.Add(item.Name);
                 else if (thing is Weapon weapon)
                     selectionStrings.Add(weapon.Name);
+                else if (thing is Room room)
+                    selectionStrings.Add(room.EntryDescription);
                 else
                     selectionStrings.Add(thing.ToString());
             }

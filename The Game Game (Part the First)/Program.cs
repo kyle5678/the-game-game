@@ -87,7 +87,9 @@ namespace The_Game_Game__Part_the_First_
 
         public static void GameGame()
         {
-            Story.Storytell(StoryArc.Chapter1);
+            //Story.Storytell(StoryArc.Chapter1);
+            Story.Chapter1ThroughTheDarkness();
+            Text.Wait("You died.");
         }
     }
 }
