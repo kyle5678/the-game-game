@@ -93,9 +93,8 @@ namespace The_Game_Game__Part_the_First_
                 for (int i = 0; i < CombatOrder.Count; i++)
                 {
                     Combatant thing = CombatOrder[i];
-                    if (thing is Player)
+                    if (thing is Player player)
                     {
-                        Player player = (Player)thing;
                         Enemy victim = player.Turn();
 
                         if (victim != null)
@@ -107,9 +106,8 @@ namespace The_Game_Game__Part_the_First_
                         }
                     }
 
-                    else if (thing is Enemy)
+                    else if (thing is Enemy foe)
                     {
-                        Enemy foe = (Enemy)thing;
                         foe.Attack();
                     }
 
@@ -122,7 +120,7 @@ namespace The_Game_Game__Part_the_First_
 
                     if (Game.PlayerOne.Dead)
                     {
-                        Text.Wait("You fall, mortally wounded.");
+                        Text.Wait("You fall, giving up hope.");
                         if (storyImportant)
                         {
                             Text.Wait("But a force, a powerful, yet somehow familiar one, refuses to let you die here.");

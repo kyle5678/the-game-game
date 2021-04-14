@@ -37,7 +37,7 @@ namespace The_Game_Game__Part_the_First_
             public static int EscapeSpiderweb;
         }
 
-        public static /*StoryArc?*/ void Chapter1ThroughTheDarkness()
+        public static bool /*StoryArc?*/ Chapter1ThroughTheDarkness()
         {
             Console.Clear();
             Text.Center(2);
@@ -91,7 +91,7 @@ namespace The_Game_Game__Part_the_First_
                 Text.Wait("Your flashlight flickers, and fades. Through darkness, the spiders bite.");
 
                 if (!Combat.Start(3, new Spiderling()))
-                    return /*null*/;
+                    return false;
 
                 Text.Wait("Throwing off the last of the spiderlings, you struggle forward once more.");
                 Text.Wait("You find yourself in a glowing domed cavern.");
@@ -102,17 +102,11 @@ namespace The_Game_Game__Part_the_First_
                 Text.Wait("Your flashlight goes out. Left in darkness, you shiver.");
                 Text.Wait("Through the dark, teeth sink into you.");
                 Text.Wait("You scream no more.");
-                return /*null*/;
+                return false;
             }
 
             Text.Wait("Rubble falls from above, just as you get through. The passage backwards is now blocked.");
-            new Room(
-                new Spiderling(),
-                new Item("Unpleasant Meat", ItemUse.Heal, 2),
-                "A crude doorway. A faint glow eminates from inside the room.",
-                "Spiderwebs cover the room.",
-                "From above, a spider drops, ready to bite."
-            ).Enter();
+            return Game.SpiderHollow.Enter();
 
             //return StoryArc.Chapter1;
         }

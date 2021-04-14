@@ -53,24 +53,6 @@ namespace The_Game_Game__Part_the_First_
             }
         }
 
-        public static int Input(string text, int type, string unIntMessage)
-        {
-            Console.Write($"{text} ");
-            while (true)
-            {
-                string input = Console.ReadLine();
-                if (int.TryParse(input, out int n))
-                {
-                    return n;
-                }
-
-                else
-                {
-                    Console.Write($"{unIntMessage} ");
-                }
-            }
-        }
-
         public static void Blank(int lines = 1)
         {
             for (int i = 0; i < lines; i++)
@@ -96,6 +78,23 @@ namespace The_Game_Game__Part_the_First_
         {
             Console.WriteLine(text);
             Console.ReadKey(true);
+        }
+
+        public static void Wait(params object[] text)
+        {
+            foreach (object print in text)
+            {
+                Wait(print);
+            }
+        }
+
+        public static void Wait(object text, string split)
+        {
+            string[] art = text.ToString().Split(split);
+            foreach (string arts in art)
+            {
+                Wait(arts);
+            }
         }
 
         public static int InputNumber(int max)
@@ -196,9 +195,9 @@ namespace The_Game_Game__Part_the_First_
             }
         }
 
-        public static int? Select(string message, params string[] choices)
+        public static int Select(string message, params string[] choices)
         {
-            return Select(message, false, choices);
+            return (int)Select(message, false, choices);
         }
 
         public static int? Select(string message, bool canEscape, params object[] choices)
@@ -214,18 +213,20 @@ namespace The_Game_Game__Part_the_First_
                     selectionStrings.Add(item.Name);
                 else if (thing is Weapon weapon)
                     selectionStrings.Add(weapon.Name);
+                else if (thing is AttackMove attack)
+                    selectionStrings.Add(attack.Type.ToString());
                 else if (thing is Room room)
                     selectionStrings.Add(room.EntryDescription);
                 else
-                    selectionStrings.Add(thing.ToString());
+                    selectionStrings.Add($"{thing} of type {thing.GetType()}");
             }
 
             return Select(message, canEscape, selectionStrings.ToArray());
         }
 
-        public static int? Select(string message, params object[] choices)
+        public static int Select(string message, params object[] choices)
         {
-            return Select(message, false, choices);
+            return (int)Select(message, false, choices);
         }
     }
 }

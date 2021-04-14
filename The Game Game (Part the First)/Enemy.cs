@@ -7,21 +7,31 @@ namespace The_Game_Game__Part_the_First_
     [Serializable]
     class Enemy : Combatant
     {
-        public Enemy(string name, int health, AttackMove attack)
+        public Enemy() { }
+
+        public Enemy(string name, int health, params AttackMove[] attack)
         {
             Name = name;
             MaxHealth = health;
             CurrentHealth = MaxHealth;
-            Attacks.Add(attack);
+            Attacks.AddRange(attack);
         }
 
-        public Enemy() { }
+        public Enemy(string name, int health, float threat, params AttackMove[] attack)
+        {
+            Name = name;
+            MaxHealth = health;
+            CurrentHealth = MaxHealth;
+            ThreatRate = threat;
+            Attacks.AddRange(attack);
+        }
 
         public string Name;
         public int CurrentHealth;
         public int MaxHealth;
         public List<AttackMove> Attacks = new List<AttackMove>();
         public float DodgeRate = 0.0f;
+        public float ThreatRate;
 
         public void Attack()
         {

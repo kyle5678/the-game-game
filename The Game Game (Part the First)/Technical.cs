@@ -9,25 +9,22 @@ namespace The_Game_Game__Part_the_First_
 {
     static class Technical
     {
-        /// <summary>
-        /// Returns true if keypress matches parameters, otherwise returns false.
-        /// </summary>
-        /// <param name="keypress">Keypress to check</param>
-        /// <param name="key">Key</param>
-        /// <param name="ctrl">If Ctrl is pressed</param>
-        /// <param name="alt">If Alt is pressed</param>
-        /// <param name="shift">If Shift is pressed</param>
-        /// <returns></returns>
-        public static bool Keypress(ConsoleKeyInfo keypress, ConsoleKey key, bool ctrl, bool alt, bool shift)
+        public static bool Matches(this ConsoleKeyInfo keypress, ConsoleKey key, bool? ctrl, bool? alt, bool? shift)
         {
             if (keypress.Key != key)
                 return false;
-            if (((keypress.Modifiers & ConsoleModifiers.Control) != 0) != ctrl)
-                return false;
-            if (((keypress.Modifiers & ConsoleModifiers.Alt) != 0) != alt)
-                return false;
-            if (((keypress.Modifiers & ConsoleModifiers.Shift) != 0) != shift)
-                return false;
+
+            if (ctrl.HasValue)
+                if ((keypress.Modifiers & ConsoleModifiers.Control) != 0 != ctrl.Value)
+                    return false;
+
+            if (alt.HasValue)
+                if ((keypress.Modifiers & ConsoleModifiers.Alt) != 0 != alt.Value)
+                    return false;
+            
+            if (shift.HasValue)
+                if ((keypress.Modifiers & ConsoleModifiers.Shift) != 0 != shift.Value)
+                    return false;
 
             return true;
         }
@@ -42,6 +39,22 @@ namespace The_Game_Game__Part_the_First_
 
                 return (T)formatter.Deserialize(ms);
             }
+        }
+
+        public static bool Chance(this double chance)
+        {
+            return Random.NextDouble() <= chance;
+        }
+
+        public static T GetRandom<T>(this List<T> list, out int index)
+        {
+            index = Random.Next(0, list.Count);
+            return list[index];
+        }
+
+        public static T GetRandom<T>(this List<T> list)
+        {
+            return GetRandom(list, out _);
         }
 
         public static Random Random = new Random();

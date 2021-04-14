@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace The_Game_Game__Part_the_First_
@@ -33,6 +34,11 @@ namespace The_Game_Game__Part_the_First_
                 else if (thing is Weapon weapon)
                 {
                     Weapons.Add(weapon);
+                }
+
+                else if (thing is Area area)
+                {
+                    ExitAreas.Add(area);
                 }
 
                 else if (thing is string importantLookingString)
@@ -85,6 +91,7 @@ namespace The_Game_Game__Part_the_First_
         public List<Item> Items = new List<Item>();
         public List<Weapon> Weapons = new List<Weapon>();
         public List<Room> Exits = new List<Room>();
+        public List<Area> ExitAreas = new List<Area>();
         public List<int> NumberedExits = new List<int>();
 
         public bool Enter()
@@ -141,17 +148,24 @@ namespace The_Game_Game__Part_the_First_
                 }
             }
 
-            if (NumberedExits.Count <= 0)
+            if (Exits.Any())
             {
-                return Exits[(int)Text.Select(CustomMsgString(6, "There is nothing more in this room of much interest. You look around to other entries to rooms."), Exits.ToArray())].Enter();
+                return Exits[Text.Select(CustomMsgString(6, "There is nothing more in this room of much interest. You look around to other entries to rooms."), Exits.ToArray())].Enter();
             }
 
             return true;
         }
 
+        public bool Enter(out string exitMessage, out Area[] areas)
+        {
+            exitMessage = CustomMsgString(6, "There is nothing more in this room of much interest. You look around to other entries to rooms.");
+            areas = ExitAreas.ToArray();
+            return Enter();
+        }
+
         private void CustomMessage(int index, string defaultMessage)
         {
-            Text.Wait(Messages[index] == null ? defaultMessage : Messages[index]);
+            Text.Wait(Messages[index] ?? defaultMessage);
         }
 
         private void CustomMessage(int index)
@@ -162,7 +176,7 @@ namespace The_Game_Game__Part_the_First_
 
         private string CustomMsgString(int index, string defaultMessage)
         {
-            return Messages[index] == null ? defaultMessage : Messages[index];
+            return Messages[index] ?? defaultMessage;
         }
     }
 }

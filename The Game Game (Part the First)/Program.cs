@@ -44,7 +44,7 @@ namespace The_Game_Game__Part_the_First_
 
             ConsoleKeyInfo keypress = Console.ReadKey(true);
             Console.Clear();
-            if (Technical.Keypress(keypress, ConsoleKey.G, true, true, true))
+            if (keypress.Matches(ConsoleKey.G, true, true, true))
             {
                 Text.Center(2);
                 Text.Center("How did you find out the secret code?");
@@ -60,7 +60,7 @@ namespace The_Game_Game__Part_the_First_
             //    keypress = Console.ReadKey(true);
             //    if (keypress.Key == ConsoleKey.D1)
             //    {
-            Console.WriteLine("Gamemode selected: Singleplayer");
+            //Console.WriteLine("Gamemode selected: Singleplayer");
             //Game.Players.Add(
             Game.PlayerOne = new Player(Text.Input("What shall you be called in this world?", "You can't have no name! Have another try."), 10);
 
@@ -88,8 +88,15 @@ namespace The_Game_Game__Part_the_First_
         public static void GameGame()
         {
             //Story.Storytell(StoryArc.Chapter1);
-            Story.Chapter1ThroughTheDarkness();
-            Text.Wait("You died.");
+            if (Story.Chapter1ThroughTheDarkness())
+            {
+                
+            }
+
+            else
+            {
+                Text.Wait("You failed.");
+            }
         }
     }
 }

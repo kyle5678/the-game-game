@@ -51,7 +51,7 @@ namespace The_Game_Game__Part_the_First_
         {
             Text.Wait(Message.Replace("[a]", attacker));
 
-            if ((float)Technical.Random.NextDouble() < Accuracy)
+            if (((double)Accuracy).Chance())
             {
                 target.Damage(Technical.Random.Next(MinimumDamage, MaximumDamage + 1), Type);
             }
@@ -71,7 +71,7 @@ namespace The_Game_Game__Part_the_First_
                 target.TakeDamage(Technical.Random.Next(MinimumDamage, MaximumDamage + 1), Type);
             }
 
-            else if ((float)Technical.Random.NextDouble() < Accuracy)
+            else if (((double)Accuracy).Chance())
             {
                 target.Damage(Technical.Random.Next(MinimumDamage, MaximumDamage + 1), Type);
             }
